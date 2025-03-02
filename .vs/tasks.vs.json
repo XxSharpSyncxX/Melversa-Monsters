@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "task-SlimeMonster",
+      "appliesTo": "Slimes/SlimeMonster.cpp",
+      "type": "launch"
+    }
+  ]
+}

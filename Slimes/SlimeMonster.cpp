@@ -1,12 +1,11 @@
 #include "SlimeMonster.h"
 
-// ✅ Function to Convert ESlimeType to a String
+// Convert Slime Type to String
 std::string SlimeTypeToString(ESlimeType Type)
 {
     switch (Type)
     {
     case ESlimeType::Green: return "Green";
-    case ESlimeType::Red: return "Red";
     case ESlimeType::Blue: return "Blue";
     case ESlimeType::Red: return "Red";
     case ESlimeType::Yellow: return "Yellow";
@@ -16,6 +15,7 @@ std::string SlimeTypeToString(ESlimeType Type)
     }
 }
 
+// ✅ Convert Slime Rarity to String
 std::string SlimeRarityToString(ESlimeRarity Rarity)
 {
     switch (Rarity)
@@ -28,6 +28,19 @@ std::string SlimeRarityToString(ESlimeRarity Rarity)
     }
 }
 
+// ✅ Convert Status Effect to String
+std::string StatusEffectToString(EStatusEffect Effect)
+{
+    switch (Effect)
+    {
+    case EStatusEffect::None: return "None";
+    case EStatusEffect::Poison: return "Poison";
+    case EStatusEffect::Burn: return "Burn";
+    case EStatusEffect::Stun: return "Stun";
+    case EStatusEffect::Slow: return "Slow";
+    default: return "Unknown";
+    }
+}
 
 // Constructor
 SlimeMonster::SlimeMonster(ESlimeType Type, ESlimeRarity Rarity)
@@ -42,18 +55,21 @@ void SlimeMonster::ApplyStatModifiers()
     if (SlimeType == ESlimeType::Green)
     {
         Stats.BaseHP *= 1.2;
+        OnHitEffect = EStatusEffect::Poison;  //  Poison on hit
     }
     else if (SlimeType == ESlimeType::Red)
     {
         Stats.BaseStrength *= 1.5;
+        OnHitEffect = EStatusEffect::Burn;  //  Burn on hit
     }
     else if (SlimeType == ESlimeType::Clear)
     {
         Stats.BaseIntelligence += 1.5;
-    }  
+    }
     else if (SlimeType == ESlimeType::Yellow)
     {
         Stats.BaseDexterity += 1.2;
+        OnHitEffect = (rand() % 2 == 0) ? EStatusEffect::Stun : EStatusEffect::Slow;  // 50% chance of Stun or Slow
     }
     else if (SlimeType == ESlimeType::Gold)
     {
@@ -85,12 +101,11 @@ void SlimeMonster::ApplyStatModifiers()
         Stats.BaseLuck *= 1.05;
     }
 }
-}
-
-// ✅ Updated PrintMonsterInfo()
+// Updated PrintMonsterInfo()
 void SlimeMonster::PrintMonsterInfo()
 {
     std::cout << "Slime Type: " << SlimeTypeToString(SlimeType) << std::endl;
     std::cout << "Slime Rarity: " << SlimeRarityToString(SlimeRarity) << std::endl;
+    std::cout << "On-Hit Effect: " << StatusEffectToString(OnHitEffect) << std::endl;
     Stats.PrintStats();
 }
