@@ -8,6 +8,7 @@ std::string SlimeTypeToString(ESlimeType Type)
     case ESlimeType::Green: return "Green";
     case ESlimeType::Red: return "Red";
     case ESlimeType::Blue: return "Blue";
+    case ESlimeType::Red: return "Red";
     case ESlimeType::Yellow: return "Yellow";
     case ESlimeType::Clear: return "Clear";
     case ESlimeType::Gold: return "Gold";
@@ -30,12 +31,12 @@ std::string SlimeRarityToString(ESlimeRarity Rarity)
 
 // Constructor
 SlimeMonster::SlimeMonster(ESlimeType Type, ESlimeRarity Rarity)
-    : SlimeType(Type), SlimeRarity(Rarity)
+    : SlimeType(Type), SlimeRarity(Rarity), OnHitEffect(EStatusEffect::None)  // ✅ Initialize OnHitEffect
 {
     ApplyStatModifiers();
 }
 
-// Apply Stat Modifiers
+// ✅ Apply Stat Modifiers & Assign Status Effects
 void SlimeMonster::ApplyStatModifiers()
 {
     if (SlimeType == ESlimeType::Green)
